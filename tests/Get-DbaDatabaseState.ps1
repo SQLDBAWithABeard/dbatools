@@ -1,4 +1,4 @@
-﻿$commandname = $MyInvocation.MyCommand.Name.Replace(".ps1","")
+﻿$CommandName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1","")
 Write-Host -Object "Running $PSCommandpath" -ForegroundColor Cyan
 . "$PSScriptRoot\constants.ps1"
 
@@ -7,7 +7,7 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
 	Context "Reading db statuses" {
 		BeforeAll {
 			$script:instance2 = $env:COMPUTERNAME
-			$server = Get-DbaInstance -SqlInstance $script:instance2
+			$server = Connect-DbaInstance -SqlInstance $script:instance2
 			$db1 = "dbatoolsci_dbstate_online"
 			$db2 = "dbatoolsci_dbstate_offline"
 			$db3 = "dbatoolsci_dbstate_emergency"
