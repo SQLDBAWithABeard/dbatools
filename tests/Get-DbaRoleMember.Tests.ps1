@@ -32,6 +32,12 @@ Describe "$CommandName Unit Tests" -Tag UnitTests, Get-DbaRoleMember {
         It "Should have a parameter NoFixedRole" {
             $Params['NoFixedRole'].Count | Should Be 1
         }
+        It "Should have a parameter ServerRole" {
+            $Params['ServerRole'].Count | Should Be 1
+        }
+        It "ServerRole parameter should have the correct validation" {
+            $Params['serverrole'].attributes.validvalues | Should Be @('bulkadmin','dbcreator','diskadmin','processadmin','public','securityadmin','serveradmin','setupadmin','sysadmin')
+        }
     }
 }
 
