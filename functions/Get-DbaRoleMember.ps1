@@ -69,7 +69,7 @@ Returns a gridview displaying SQLServer, Database, Role, Member for both ServerR
 		[PSCredential]
 		$SqlCredential,
 		[Parameter(Mandatory = $false)]
-        [ValidateSet('bulkadmin','dbcreator','diskadmin','processadmin','public','securityadmin','serveradmin','setupadmin','sysadmin')]
+        [ValidateSet('bulkadmin','dbcreator','diskadmin','processadmin','public','securityadmin','serveradmin','setupadmin','sysadmin', 'All')]
         [string] $ServerRole,
 		[Alias("Databases")]
 		[object[]]$Database,
