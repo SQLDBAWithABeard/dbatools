@@ -63,7 +63,7 @@ Returns a gridview displaying SQLServer, Database, Role, Member for both ServerR
 	[CmdletBinding()]
 	Param (
 		[parameter(Mandatory, ValueFromPipeline)]
-		[Alias('SqlServer', 'ServerInstance')]
+		[Alias('ServerInstance','SqlServer')]
 		[DbaInstanceParameter[]]$SqlInstance,
 		[Alias("Credential")]
 		[PSCredential]
