@@ -114,6 +114,46 @@ Returns a gridview displaying SQLServer, Database, Role, Member for both ServerR
 			}
 			
 			$dbs = $server.Databases
+
+			if ($ServerRole) {
+
+				if($ServerRole -eq 'All'){
+					Write-Verbose "Getting Server Roles on $instance"
+					$instroles = $server.roles
+					if ($NoFixedRole) {
+						$instroles = $instroles | Where-Object { $_.isfixedrole -eq $false }
+					}
+					ForEach ($instrole in $instroles) {
+						Write-Verbose "Getting Server Role Members for $instrole on $instance"
+						$irmembers = $null
+						$irmembers = $instrole.enumserverrolemembers()
+						ForEach ($irmem in $irmembers) {
+							[PSCustomObject]@{
+								SQLInstance = $instance
+								Database    = $null
+								Role        = $instrole.name
+								Member      = $irmem.tostring()
+							}
+						}
+					}
+				}
+				else {
+					ForEach ($role in $Server.Roles | Where-Object {$_.Name -eq $ServerRole}) {
+						Write-Verbose "Getting Server Role Members for $role on $instance"
+						$irmembers = $null
+						$irmembers = $role.enumserverrolemembers()
+						ForEach ($irmem in $irmembers) {
+							[PSCustomObject]@{
+								SQLInstance = $instance
+								Database    = $null
+								Role        = $role.name
+								Member      = $irmem.tostring()
+							}
+						}
+					}
+				}
+				$dbs = $null
+			}
 			
 			if ($Database) {
 				$dbs = $dbs | Where-Object Name -In $Database
